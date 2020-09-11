@@ -1,0 +1,53 @@
+<html>
+        <body>
+                <pre>
+Getting Started with Compute Engine 
+we create virtual machines (VMs) and connect them.Then create connections between the instances.
+click  Navigation menu >Compute Engine > VM instances
+create
+Name, type my-vm-1
+For Region and Zone, select the region and zone assigned by Qwiklabs.
+For Machine type, accept the default.
+For Boot disk select Debian GNU/Linux 9 (stretch). note click change if the image is not the one shown
+For Identity and API access leave at default
+For Firewall, click Allow HTTP traffic.
+Leave all other default
+launch the VM, click Create.
+Open Cloud Shell button
+display all the zones assighned to you by this <command>
+        gcloud compute zones list | grep us-central1
+        (grep tool is for seaching plain text datasets for lines that march regular expression)
+choose onother zone othe than the one quicklab assigned you ie us-central1-b
+set default zone using this command =>gcloud config set compute/zone us-central1-b us-central is our default zone
+we need to create onother vm which well call my-vm-2  using this <command>
+        gcloud compute instances create "my-vm-2" 
+        --machine-type "n1-standard-1" 
+        --image-project "debian-cloud" 
+        --image "debian-9-stretch-v20190213" 
+        --subnet "default"
+we exit the cloudshell by <command> exit
+    we need to connect the two instances
+click Navigation > Compute Engine > VM instances
+we get two vm instance in two different zones
+open a command prompt on the my-vm-2 instance, click SSH
+using ping command check wether my-vm-1 can reach my-vm-2 on network using this command
+ping my-vm-1
+the can reach the <my-vm-1>
+control+c to abort the ping
+ssh command to open a command prompt on my-vm-1
+install the Nginx web server with this <command> 
+        sudo apt-get install nginx-light -y
+Using the nano text editor to add a custom message to the home page of the web server this <command>
+        sudo nano /var/www/html/index.nginx-debian.html
+use arrow keys to move the corsor below h1 add this line "Hi from ANKDREW"
+control +o > enter >control +x to exit the nano editor
+to convirm webserver is serving our page with this <code>
+        curl http://localhost
+exit command,
+check my-vm-2 can reach webserver on my-vm-1 command prompt on my-vm-2 with this command
+curl http://my-vm-1
+result will be web server to check it out copy the external ip address and copy it on a new tab web browser
+</pre>
+</body>
+</html>
+
